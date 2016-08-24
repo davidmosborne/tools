@@ -47,11 +47,24 @@ namespace Domain
         {
             if (!_currentHashCode.HasValue)
             {
-                // ReSharper disable once BaseObjectGetHashCodeCallInGetHashCode
-                _currentHashCode =
-                    Id.Equals(UnsavedValue)
-                        ? base.GetHashCode()
-                        : Id.GetHashCode();
+                if (EqualityComparer<TKey>.Default.Equals(Id, UnsavedValue))
+                {
+                    // ReSharper disable once BaseObjectGetHashCodeCallInGetHashCode
+                    _currentHashCode = base.GetHashCode();
+                }
+
+                var structuralEquatableKey = Id as IStructuralEquatable;
+
+                if (structuralEquatableKey != null)
+                {
+                    _currentHashCode =
+                        structuralEquatableKey.GetHashCode(
+                            StructuralComparisons.StructuralEqualityComparer);
+                }
+                else
+                {
+                    _currentHashCode = Id.GetHashCode();
+                }
             }
 
             return _currentHashCode.Value;

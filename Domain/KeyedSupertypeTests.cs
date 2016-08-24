@@ -54,6 +54,15 @@ namespace Domain
             e1.Equals(e2).Should().BeTrue();
         }
 
+        [Fact]
+        public void WillEquateTwoArrays()
+        {
+            var e1 = new EntityWithByteArrayKey(Guid.Empty.ToByteArray());
+            var e2 = new EntityWithByteArrayKey(Guid.Empty.ToByteArray());
+
+            e1.GetHashCode().Equals(e2.GetHashCode()).Should().BeTrue();
+        }
+
         private sealed class EntityWithIntKey : Supertype<int, EntityWithIntKey>
         {
             public EntityWithIntKey(int id)

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Vindicative.Core.Model
+namespace Domain
 {
 	[Serializable]
 	public abstract class Supertype<T> : IEquatable<T>, IComparable<T> where T : Supertype<T>

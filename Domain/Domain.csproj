@@ -38,6 +38,7 @@
       <HintPath>packages\FluentAssertions.4.13.0\lib\net45\FluentAssertions.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,6 +49,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EncapsulatedCollection.cs" />
+    <Compile Include="InterestExtensions.cs" />
+    <Compile Include="InterestExtensionsTests.cs" />
     <Compile Include="KeyedSupertype.cs" />
     <Compile Include="KeyedSupertypeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

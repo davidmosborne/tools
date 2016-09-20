@@ -7,12 +7,14 @@ using System.Collections.Generic;
 namespace Domain
 {
     [Serializable]
-    public abstract class Supertype<TKey, TEntity> : IEquatable<TEntity>, IComparable<TEntity>
+    public abstract class Supertype<TKey, TEntity>
+        : IEquatable<TEntity>,
+            IComparable<TEntity>
         where TEntity : Supertype<TKey, TEntity>
     {
         private int? _currentHashCode;
 
-        private static TKey UnsavedValue => default(TKey);
+        private static readonly TKey UnsavedValue = default(TKey);
 
         public virtual TKey Id { get; protected set; }
 
@@ -21,19 +23,15 @@ namespace Domain
         public virtual int CompareTo(TEntity other)
         {
             if (other == null)
-            {
                 return 1;
-            }
 
             var structuralComparableKey = Id as IStructuralComparable;
 
             if (structuralComparableKey != null)
-            {
                 return structuralComparableKey
                     .CompareTo(
                         other.Id,
                         StructuralComparisons.StructuralComparer);
-            }
 
             return Comparer<TKey>.Default.Compare(Id, other.Id);
         }
@@ -48,23 +46,16 @@ namespace Domain
             if (!_currentHashCode.HasValue)
             {
                 if (EqualityComparer<TKey>.Default.Equals(Id, UnsavedValue))
-                {
-                    // ReSharper disable once BaseObjectGetHashCodeCallInGetHashCode
                     _currentHashCode = base.GetHashCode();
-                }
 
                 var structuralEquatableKey = Id as IStructuralEquatable;
 
                 if (structuralEquatableKey != null)
-                {
                     _currentHashCode =
                         structuralEquatableKey.GetHashCode(
                             StructuralComparisons.StructuralEqualityComparer);
-                }
                 else
-                {
                     _currentHashCode = Id.GetHashCode();
-                }
             }
 
             return _currentHashCode.Value;
@@ -75,27 +66,31 @@ namespace Domain
             var other = obj as TEntity;
 
             if (other == null)
-            {
                 return false;
-            }
 
             if (EqualityComparer<TKey>.Default.Equals(Id, UnsavedValue)
                 && EqualityComparer<TKey>.Default.Equals(other.Id, UnsavedValue))
-            {
                 return ReferenceEquals(this, other);
-            }
 
             var structuralEquatableKey = Id as IStructuralEquatable;
 
             if (structuralEquatableKey != null)
-            {
                 return structuralEquatableKey
                     .Equals(
                         other.Id,
                         StructuralComparisons.StructuralEqualityComparer);
-            }
 
             return EqualityComparer<TKey>.Default.Equals(Id, other.Id);
+        }
+
+        public static bool operator ==(Supertype<TKey, TEntity> left, Supertype<TKey, TEntity> right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(Supertype<TKey, TEntity> left, Supertype<TKey, TEntity> right)
+        {
+            return !Equals(left, right);
         }
     }
 }

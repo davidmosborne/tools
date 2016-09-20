@@ -7,6 +7,14 @@ namespace Domain
     public class KeyedSupertypeTests
     {
         [Fact]
+        public void Equals_()
+        {
+            var x = new EntityWithStringKey("x");
+
+            x.Equals(x).Should().BeTrue();
+        }
+
+        [Fact]
         public void Will()
         {
             var e1 = new EntityWithIntKey(1);
@@ -59,6 +67,8 @@ namespace Domain
             e1.GetHashCode().Equals(e2.GetHashCode()).Should().BeTrue();
         }
 
+
+
         private sealed class EntityWithIntKey : Supertype<int, EntityWithIntKey>
         {
             public EntityWithIntKey(int id)
@@ -77,6 +87,14 @@ namespace Domain
 
             public EntityWithByteArrayKey()
             {
+            }
+        }
+
+        private sealed class EntityWithStringKey : Supertype<string, EntityWithStringKey>
+        {
+            public EntityWithStringKey(string id)
+            {
+                Id = id;
             }
         }
     }

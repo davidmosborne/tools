@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EncapsulatedCollection.cs" />
+    <Compile Include="Hashing.cs" />
     <Compile Include="InterestExtensions.cs" />
     <Compile Include="InterestExtensionsTests.cs" />
     <Compile Include="KeyedSupertype.cs" />

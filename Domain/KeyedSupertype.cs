@@ -2,8 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 
-// ReSharper disable NonReadonlyMemberInGetHashCode
-
 namespace Domain
 {
     [Serializable]

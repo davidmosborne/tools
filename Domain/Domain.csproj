@@ -40,6 +40,7 @@
       <HintPath>packages\FluentAssertions.4.14.0\lib\net45\FluentAssertions.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -63,6 +64,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EncapsulatedCollection.cs" />
+    <Compile Include="EventSourcing\AggregateRoot.cs" />
+    <Compile Include="EventSourcing\Event.cs" />
+    <Compile Include="EventSourcing\InventoryItem.cs" />
+    <Compile Include="EventSourcing\InventoryItemDeactivated.cs" />
     <Compile Include="Hashing.cs" />
     <Compile Include="InterestExtensions.cs" />
     <Compile Include="InterestExtensionsTests.cs" />

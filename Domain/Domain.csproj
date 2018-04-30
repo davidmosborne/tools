@@ -64,8 +64,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DomainEvent.cs" />
+    <Compile Include="EmployeeType.cs" />
+    <Compile Include="EmployeeType2.cs" />
     <Compile Include="EncapsulatedCollection.cs" />
     <Compile Include="EntityWithEvents.cs" />
+    <Compile Include="Enumeration.cs" />
     <Compile Include="EventSourcing\AggregateRoot.cs" />
     <Compile Include="EventSourcing\Event.cs" />
     <Compile Include="EventSourcing\InventoryItem.cs" />

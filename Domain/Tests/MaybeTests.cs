@@ -14,6 +14,8 @@ namespace Domain.Tests
             var x = n.GetValueOrFallback("");
 
             var p = new Parent(new Child2());
+
+            var q = EmployeeType2.Manager.BonusSize;
         }
     }
 }

@@ -12,6 +12,8 @@ namespace Domain.Tests
             var n = m.Select(s => s.ToString());
 
             var x = n.GetValueOrFallback("");
+
+            var p = new Parent(new Child2());
         }
     }
 }

@@ -63,18 +63,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DomainEvent.cs" />
     <Compile Include="EncapsulatedCollection.cs" />
+    <Compile Include="EntityWithEvents.cs" />
     <Compile Include="EventSourcing\AggregateRoot.cs" />
     <Compile Include="EventSourcing\Event.cs" />
     <Compile Include="EventSourcing\InventoryItem.cs" />
     <Compile Include="EventSourcing\InventoryItemDeactivated.cs" />
     <Compile Include="Hashing.cs" />
+    <Compile Include="IEventContainer.cs" />
     <Compile Include="InterestExtensions.cs" />
     <Compile Include="InterestExtensionsTests.cs" />
     <Compile Include="KeyedSupertype.cs" />
     <Compile Include="KeyedSupertypeTests.cs" />
     <Compile Include="Maybe.cs" />
+    <Compile Include="Parent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SomethingHappened.cs" />
     <Compile Include="Supertype.cs" />
     <Compile Include="Tests\MaybeTests.cs" />
   </ItemGroup>

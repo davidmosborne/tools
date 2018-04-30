@@ -21,15 +21,17 @@ namespace Domain
         public virtual int CompareTo(TEntity other)
         {
             if (other == null)
+            {
                 return 1;
+            }
 
-            var structuralComparableKey = Id as IStructuralComparable;
-
-            if (structuralComparableKey != null)
+            if (Id is IStructuralComparable structuralComparableKey)
+            {
                 return structuralComparableKey
                     .CompareTo(
                         other.Id,
                         StructuralComparisons.StructuralComparer);
+            }
 
             return Comparer<TKey>.Default.Compare(Id, other.Id);
         }
@@ -44,16 +46,20 @@ namespace Domain
             if (!_currentHashCode.HasValue)
             {
                 if (EqualityComparer<TKey>.Default.Equals(Id, UnsavedValue))
+                {
                     _currentHashCode = base.GetHashCode();
-
-                var structuralEquatableKey = Id as IStructuralEquatable;
-
-                if (structuralEquatableKey != null)
+                }
+                    
+                if (Id is IStructuralEquatable structuralEquatableKey)
+                {
                     _currentHashCode =
                         structuralEquatableKey.GetHashCode(
                             StructuralComparisons.StructuralEqualityComparer);
+                }
                 else
+                {
                     _currentHashCode = Id.GetHashCode();
+                }
             }
 
             return _currentHashCode.Value;
@@ -64,19 +70,23 @@ namespace Domain
             var other = obj as TEntity;
 
             if (other == null)
+            {
                 return false;
+            }
 
             if (EqualityComparer<TKey>.Default.Equals(Id, UnsavedValue)
                 && EqualityComparer<TKey>.Default.Equals(other.Id, UnsavedValue))
+            {
                 return ReferenceEquals(this, other);
+            }
 
-            var structuralEquatableKey = Id as IStructuralEquatable;
-
-            if (structuralEquatableKey != null)
+            if (Id is IStructuralEquatable structuralEquatableKey)
+            {
                 return structuralEquatableKey
                     .Equals(
                         other.Id,
                         StructuralComparisons.StructuralEqualityComparer);
+            }
 
             return EqualityComparer<TKey>.Default.Equals(Id, other.Id);
         }

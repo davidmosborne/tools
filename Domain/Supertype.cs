@@ -5,15 +5,15 @@ namespace Domain
 	[Serializable]
 	public abstract class Supertype<T> : IEquatable<T>, IComparable<T> where T : Supertype<T>
 	{
-		const int UnsavedValue = 0;
+	    public const int UnsavedValue = 0;
 
 		#region Properties
 		private int _id = UnsavedValue;
 
 		public virtual int Id
 		{
-			get { return _id; }
-			protected set { _id = value; }
+			get => _id;
+		    protected set => _id = value;
 		}
 
 		protected int Version { get; set; }
@@ -26,14 +26,7 @@ namespace Domain
 		{
 			if (!_currentHashCode.HasValue)
 			{
-				if (Id == UnsavedValue)
-				{
-					_currentHashCode = base.GetHashCode();
-				}
-				else
-				{
-					_currentHashCode = Id.GetHashCode();
-				}
+			    _currentHashCode = Id == UnsavedValue ? base.GetHashCode() : Id.GetHashCode();
 			}
 
 			return _currentHashCode.Value;
@@ -48,8 +41,7 @@ namespace Domain
 
 		public override bool Equals(object obj)
 		{
-			var other = obj as T;
-			if (other == null) return false;
+		    if (!(obj is T other)) return false;
 
 			if (Id == UnsavedValue && other.Id == UnsavedValue) return ReferenceEquals(this, other);
 
@@ -60,9 +52,7 @@ namespace Domain
 		#region Comparison
 		public virtual int CompareTo(T other)
 		{
-			if (other == null) return 1;
-
-			return Id.CompareTo(other.Id);
+		    return other == null ? 1 : Id.CompareTo(other.Id);
 		}
 		#endregion
 

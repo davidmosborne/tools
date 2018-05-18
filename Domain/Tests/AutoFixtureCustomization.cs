@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.AutoMoq;
+using Ploeh.AutoFixture.Kernel;
 using Xunit;
 
 namespace Domain.Tests
@@ -11,6 +12,8 @@ namespace Domain.Tests
         public void TestWithCustomizations()
         {
             var fixture = new Fixture().Customize(new MyCustomizations());
+
+            fixture.Customizations.Add(new MySpecimenBuilder());
 
             fixture.Create<string>().Should().Contain("me!");
         }
@@ -35,6 +38,14 @@ namespace Domain.Tests
             public void Customize(IFixture fixture)
             {
                 fixture.Inject("You're only going to get me!");
+            }
+        }
+
+        private class MySpecimenBuilder : ISpecimenBuilder
+        {
+            public object Create(object request, ISpecimenContext context)
+            {
+                throw new System.NotImplementedException();
             }
         }
     }
